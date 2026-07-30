@@ -1,8 +1,8 @@
 class Cumetal < Formula
   desc "CUDA compiler and compatibility runtime for Apple Metal"
   homepage "https://github.com/Lulzx/cuda-metal"
-  url "https://github.com/Lulzx/cuda-metal/archive/refs/tags/v0.1.0.tar.gz"
-  sha256 "735e8738df821c7b030b3fe6d6fc7ec7efcd3ff844451ed766c488c50b4c4d3e"
+  url "https://github.com/Lulzx/cuda-metal/archive/refs/tags/v0.1.1.tar.gz"
+  sha256 "09f115b596509a30007dadf47b8a204773c4ccf080f7561ee1a6520c20e3cac2"
   license "Apache-2.0"
   head "https://github.com/Lulzx/cuda-metal.git", branch: "main"
 
@@ -42,7 +42,7 @@ class Cumetal < Formula
   end
 
   test do
-    assert_match "cumetal 0.1.0", shell_output("#{bin}/cumetal version")
+    assert_match "cumetal 0.1.1", shell_output("#{bin}/cumetal version")
     system bin/"cumetal", "doctor"
 
     (testpath/"vector_add.cu").write <<~CUDA
