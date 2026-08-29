@@ -6,6 +6,11 @@ class Cumetal < Formula
   license "Apache-2.0"
   head "https://github.com/Lulzx/cuda-metal.git", branch: "main"
 
+  resource "vf64-metal" do
+    url "https://github.com/Lulzx/VF64-metal/archive/729021777455da72db8809d9ef1269c677d88b3f.tar.gz"
+    sha256 "c9e0308a54a3beec0dba15a12b81a68cda9ad502a919a6dd1cfe193a4bd6e5a5"
+  end
+
   depends_on "cmake" => :build
   depends_on arch: :arm64
   depends_on "llvm"
@@ -13,6 +18,10 @@ class Cumetal < Formula
 
   def install
     odie "Apple's Xcode Command Line Tools are required." unless File.executable?("/usr/bin/xcrun")
+
+    resource("vf64-metal").stage do
+      (buildpath/"third_party/VF64-metal").install Dir["*"]
+    end
 
     %w[metal metallib].each do |tool|
       next if quiet_system("/usr/bin/xcrun", "--find", tool)
