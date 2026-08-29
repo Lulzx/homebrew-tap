@@ -18,6 +18,7 @@ class Cumetal < Formula
 
   def install
     odie "Apple's Xcode Command Line Tools are required." unless File.executable?("/usr/bin/xcrun")
+    cmake = formula_opt_bin("cmake")/"cmake"
 
     resource("vf64-metal").stage do
       (buildpath/"third_party/VF64-metal").install Dir["*"]
@@ -35,9 +36,9 @@ class Cumetal < Formula
       -DLLVM_DIR=#{formula_opt_lib("llvm")}/cmake/llvm
     ]
 
-    system "cmake", "-S", ".", "-B", "build", *args
-    system "cmake", "--build", "build", "--parallel"
-    system "cmake", "--install", "build"
+    system cmake, "-S", ".", "-B", "build", *args
+    system cmake, "--build", "build", "--parallel"
+    system cmake, "--install", "build"
   end
 
   def caveats
